@@ -8,15 +8,66 @@ const Appointment = () => {
   const { doctors, currencySymbol } = useContext(AppContext);
 
   const [docInfo, setDocInfo] = useState(null);
+  const [docSlots,setDocSlot]=useState([])
+  const [slotIndex,setSlotIndex]=useState(0)
+  const [slotTime,setSlotTime]=useState('') 
 
   const fetchDocInfo = () => {
     const docInfo = doctors.find((doc) => doc._id === docId);
-    setDocInfo(docInfo);
+    setDocInfo(docInfo)
   };
 
+  const getAvailableSlots=async ()=>{
+      setDocSlot([])
+
+    // getting current date
+
+    let today=new Date()
+
+    for(let i=0;i<7;i++){
+      //getting date with index
+      let currentDate=new Date(today)
+      currentDate.setDate(today.getDate()+i)
+      //setting end time of the date with index
+      let endTime=new Date()
+      endTime.setDate(today.getDate()+1)
+      endTime.setHours(21,0,0,0)
+
+      //setting hour
+      if(today.getDate===currentDate.getDate()){
+        currentDate.setHours(currentDate.getHours()>10?currentDate.getHours()+1:10)
+        currentDate.setMinutes(currentDate.getMinutes()>30?30:0)
+      }else{
+        currentDate.setHours(10)
+        currentDate.setMinutes(0)
+      }
+
+      let timeSlot=[]
+      while(currentDate<endTime){
+        let formattedTime=currentDate.toLocaleTimeString([],{hour:'2 digit', minute:'2-digit '})
+        //add slot to array
+        timeSlot.push({
+          datetime: new Date(currentDate),
+          time: formattedTime
+        })
+
+        //increment current time by 30 min
+        currentDate.setMinutes(currentDate.getMinutes()+30)
+        setDocSlot
+      }
+
+    }
+  }
+  
   useEffect(() => {
     fetchDocInfo();
-  }, [doctors, docId]);
+  }, [doctors, docId])
+
+  useEffect(()=>{
+    getAvailableSlots()
+  },[docInfo])
+
+
 
 return docInfo && (
   <div className="max-w-3xl mx-auto mt-8 px-4">
@@ -51,7 +102,7 @@ return docInfo && (
         <div className="text-sm text-gray-700">
           <p className="font-semibold">{docInfo.degree} • {docInfo.speciality}</p>
           <p className="inline-block bg-green-200 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mt-1">
-            {docInfo.experience} years experience
+            {docInfo.experience} experience
           </p>
         </div>
 
