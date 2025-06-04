@@ -81,7 +81,7 @@ const Navbar = () => {
                                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10">
                                     <button
                                         onClick={() => {
-                                            navigate("/profile");
+                                            navigate("/my-profile");
                                             setDropdownOpen(false);
                                         }}
                                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -90,7 +90,7 @@ const Navbar = () => {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            navigate("/appointments");
+                                            navigate("/my-appointment");
                                             setDropdownOpen(false);
                                         }}
                                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
