@@ -6,7 +6,8 @@ const Banner = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/login');
+    navigate('/login')
+    window.scrollTo(0, 0);;
   };
 
   return (

@@ -90,7 +90,7 @@ const Navbar = () => {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            navigate("/my-appointments");
+                                            navigate("/my-appointment");
                                             setDropdownOpen(false);
                                         }}
                                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
