@@ -67,14 +67,17 @@ const Appointment = () => {
 
   useEffect(() => {
     fetchDocInfo();
+     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [doctors, docId]);
 
   useEffect(() => {
     getAvailableSlots();
+     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [docInfo]);
 
   useEffect(() => {
     console.log(docSlots);
+     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [docSlots]);
 
   return (

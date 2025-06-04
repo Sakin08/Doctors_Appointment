@@ -7,12 +7,12 @@ const TopDoctors = () => {
   const { doctors } = useContext(AppContext);
 
   return (
-    <div className="px-6 py-10 bg-gray-50 min-h-screen shadow-inner">
-      <h1 className="text-4xl font-bold text-blue-800 mb-2 text-center">
+    <div className="px-6 py-12 bg-gradient-to-b from-blue-50 to-white min-h-screen">
+      <h1 className="text-4xl font-extrabold text-blue-900 mb-4 text-center tracking-wide">
         Top Doctors to Book
       </h1>
-      <p className="text-center text-blue-700 max-w-3xl mx-auto mb-8 text-lg">
-        Simply browse through our extensive list of trusted doctors, schedule your appointment hassle-free.
+      <p className="text-center text-blue-700 max-w-3xl mx-auto mb-12 text-lg font-light leading-relaxed">
+        Browse our trusted doctors and schedule your appointment effortlessly.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
@@ -20,32 +20,31 @@ const TopDoctors = () => {
           <div
             key={index}
             onClick={() => navigate(`/appointment/${item._id}`)}
-            className="bg-white rounded-xl shadow-md p-5 flex flex-col items-center cursor-pointer 
-                       hover:shadow-xl hover:scale-[1.03] transition-transform duration-300 ease-in-out"
+            className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center cursor-pointer
+                       transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <img
               src={item.image}
               alt={item.name}
-              className="h-28 w-28 object-cover rounded-full mb-4 border-4 border-blue-100"
+              className="h-28 w-28 object-cover rounded-full mb-5 border-2 border-blue-300"
+              loading="lazy"
             />
-            <div className="w-full text-center">
-              <div className="mb-2">
-                <span className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                  Available
-                </span>
-              </div>
-              <p className="text-xl font-semibold text-blue-900">{item.name}</p>
-              <p className="text-blue-600 text-sm">{item.speciality}</p>
+            <div className="text-center">
+              <span className="inline-block bg-green-200 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                Available
+              </span>
+              <h2 className="text-xl font-semibold text-blue-900 mb-1">{item.name}</h2>
+              <p className="text-blue-600 text-sm font-medium">{item.speciality}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-12">
         <button
           onClick={() => navigate('/doctors')}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold 
-                     transition duration-300 shadow-md hover:shadow-lg hover:scale-105"
+          className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-full font-semibold
+                     shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
         >
           More
         </button>
