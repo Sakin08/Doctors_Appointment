@@ -18,7 +18,6 @@ const Doctors = () => {
 
   useEffect(() => {
     applyFilter();
-     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [doctors, speciality]);
 
   const specialities = [

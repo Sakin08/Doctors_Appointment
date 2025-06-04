@@ -6,6 +6,12 @@ const TopDoctors = () => {
   const navigate = useNavigate();
   const { doctors } = useContext(AppContext);
 
+  // Instant scroll to top and navigate
+  const handleNavigate = (path) => {
+    window.scrollTo(0, 0);
+    navigate(path);
+  };
+
   return (
     <div className="px-6 py-12 bg-gradient-to-b from-blue-50 to-white min-h-screen">
       <h1 className="text-4xl font-extrabold text-blue-900 mb-4 text-center tracking-wide">
@@ -19,7 +25,7 @@ const TopDoctors = () => {
         {doctors.slice(0, 10).map((item, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/appointment/${item._id}`)}
+            onClick={() => handleNavigate(`/appointment/${item._id}`)}
             className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center cursor-pointer
                        transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
           >
@@ -42,7 +48,7 @@ const TopDoctors = () => {
 
       <div className="flex justify-center mt-12">
         <button
-          onClick={() => navigate('/doctors')}
+          onClick={() => handleNavigate('/doctors')}
           className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-full font-semibold
                      shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
         >
