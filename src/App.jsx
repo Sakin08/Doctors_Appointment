@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Import all your page components
 import Home from './pages/Home'
@@ -18,7 +19,7 @@ const App = () => {
   return (
     
     <div className="mx-4 sm:mx-[10%]">
-      
+      <ToastContainer/>
       <Navbar />
       <Routes>
         
