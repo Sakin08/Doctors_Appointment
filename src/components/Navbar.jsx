@@ -6,12 +6,12 @@ import { AppContext } from "../context/AppContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false); // Mobile menu
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken, userData } = useContext(AppContext);
 
   const [dropdownOpen, setDropdownOpen] = useState(false); // Profile dropdown
   const dropdownRef = useRef(null);
 
-  // Close dropdown when clicked outside
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -23,7 +23,6 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // Remove token from localStorage and update state
     setToken(false);
     setDropdownOpen(false);
     navigate("/");
@@ -48,18 +47,27 @@ const Navbar = () => {
               key={idx}
               to={path}
               className={({ isActive }) =>
-                `text-md font-medium hover:text-blue-600 transition duration-300 ${isActive ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-700"
+                `text-md font-medium hover:text-blue-600 transition duration-300 ${
+                  isActive
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-700"
                 }`
               }
             >
-              {path === "/" ? "Home" : path === "/doctors" ? "All Doctors" : path === "/about" ? "About" : "Contact"}
+              {path === "/"
+                ? "Home"
+                : path === "/doctors"
+                ? "All Doctors"
+                : path === "/about"
+                ? "About"
+                : "Contact"}
             </NavLink>
           ))}
         </ul>
 
         {/* Right-side buttons */}
         <div className="hidden sm:block relative" ref={dropdownRef}>
-          {!token ? (
+          {!token || !userData ? (
             <button
               onClick={() => navigate("/login")}
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
@@ -69,7 +77,7 @@ const Navbar = () => {
           ) : (
             <div>
               <img
-                src={assets.profile || "https://i.pravatar.cc/32"}
+                src={userData.image || "https://i.pravatar.cc/32"}
                 alt="Profile"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="w-10 h-10 rounded-full cursor-pointer border border-gray-300"
@@ -109,8 +117,18 @@ const Navbar = () => {
 
         {/* Mobile menu toggle */}
         <button className="sm:hidden" onClick={() => setShowMenu(!showMenu)}>
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       </div>
@@ -123,15 +141,22 @@ const Navbar = () => {
               key={idx}
               to={path}
               className={({ isActive }) =>
-                `block text-md font-medium hover:text-blue-600 transition duration-300 ${isActive ? "text-blue-600" : "text-gray-700"
+                `block text-md font-medium hover:text-blue-600 transition duration-300 ${
+                  isActive ? "text-blue-600" : "text-gray-700"
                 }`
               }
-              onClick={() => setShowMenu(false)} // close menu after click
+              onClick={() => setShowMenu(false)}
             >
-              {path === "/" ? "Home" : path === "/doctors" ? "All Doctors" : path === "/about" ? "About" : "Contact"}
+              {path === "/"
+                ? "Home"
+                : path === "/doctors"
+                ? "All Doctors"
+                : path === "/about"
+                ? "About"
+                : "Contact"}
             </NavLink>
           ))}
-          {!token ? (
+          {!token || !userData ? (
             <button
               onClick={() => {
                 setShowMenu(false);
@@ -145,7 +170,7 @@ const Navbar = () => {
             <div className="space-y-2">
               <button
                 onClick={() => {
-                  navigate("/profile");
+                  navigate("/my-profile");
                   setShowMenu(false);
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -154,7 +179,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => {
-                  navigate("/appointments");
+                  navigate("/my-appointment");
                   setShowMenu(false);
                 }}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100"
